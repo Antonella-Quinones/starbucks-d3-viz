@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Starbucks Drink Nutrition Explorer – Documentation</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    main {
+      display: block;
+      max-width: 900px;
+      margin: 1.5rem auto 2.5rem;
+      padding: 0 1.5rem;
+    }
+    h1, h2, h3 {
+      color: #006241;
+    }
+    img.sketch {
+      max-width: 100%;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      margin: 0.5rem 0;
+    }
+    .code {
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      background: #f5f5f5;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Starbucks Drink Nutrition Explorer – Documentation</h1>
+    <p class="subtitle">
+      Design notes, rationale, and findings for my D3 final project.
+    </p>
+    <nav>
+      <a href="index.html">Back to visualization</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Dataset</h2>
+      <p>
+        I used the public <strong>Starbucks drink menu nutrition</strong> dataset
+        from Kaggle. It contains nutrition information for different Starbucks
+        drinks and sizes. I focused on a subset of attributes:
+      </p>
+      <ul>
+        <li><span class="code">Beverage_category</span> – drink category (e.g., Coffee, Frappuccino).</li>
+        <li><span class="code">Beverage</span> – drink name.</li>
+        <li><span class="code">Beverage_prep</span> – preparation / size description.</li>
+        <li><span class="code">Calories</span> – calories per serving.</li>
+        <li><span class="code">Sugars (g)</span> – sugar in grams.</li>
+        <li><span class="code">Caffeine (mg)</span> – caffeine in milligrams (when present).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. Design process</h2>
+      <p>
+        My main question was: <em>“How do calories and sugar relate across different Starbucks drink categories?”</em>
+        I also wanted to see which drinks are both very sugary and high in calories, and how caffeine fits into the picture.
+      </p>
+      <p>
+        I started with quick pencil sketches of different options: one idea was multiple small bar charts
+        per category, and another was a single scatterplot with filters. I decided to go with a scatterplot
+        because it makes it easier to see the relationship between two continuous variables (calories and sugar).
+      </p>
+      <p>
+        I also sketched the layout: controls at the top, the main chart on the left, and a short “How to read”
+        panel on the right so the page still feels like a dashboard and not just a naked chart.
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Visualization & interactions</h2>
+      <p>The main visualization is a scatterplot with:</p>
+      <ul>
+        <li><strong>X‑axis:</strong> Calories</li>
+        <li><strong>Y‑axis:</strong> Sugar (grams)</li>
+        <li><strong>Point color:</strong>
+          <ul>
+            <li>By default: drink <strong>category</strong> (categorical colors).</li>
+            <li>Optional: <strong>caffeine level</strong>, using a yellow→red gradient.</li>
+          </ul>
+        </li>
+        <li><strong>Interactions:</strong>
+          <ul>
+            <li>Category dropdown to filter to a single drink type or see all.</li>
+            <li>Slider to limit the maximum calories (e.g., “show me drinks under 300 calories”).</li>
+            <li>Dropdown to switch color encoding from category to caffeine level.</li>
+            <li>Tooltips on hover showing full drink name, prep, calories, sugar, and caffeine.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        I capped the slider at 600 calories to avoid one or two extreme drinks stretching the scale too much.
+        This keeps the chart visually stable even when you move the slider.
+      </p>
+    </section>
+
+    <section>
+      <h2>4. Design choices & rationale</h2>
+      <h3>4.1 Encoding</h3>
+      <ul>
+        <li>
+          <strong>Scatterplot:</strong> Chosen because it directly supports my main analytical task:
+          visually comparing calories versus sugar.
+        </li>
+        <li>
+          <strong>Color:</strong>
+          <ul>
+            <li>Category colors use D3’s <span class="code">schemeTableau10</span>, which is colorblind‑friendly and readable.</li>
+            <li>Caffeine uses a sequential yellow→red scale so “hotter” colors feel like higher caffeine.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Tooltip:</strong> Instead of labeling points directly (which would be messy), I kept labels in a hover tooltip.
+        </li>
+      </ul>
+
+      <h3>4.2 Layout</h3>
+      <ul>
+        <li>
+          Controls live in a horizontal strip at the top so they feel like filters for the whole view.
+        </li>
+        <li>
+          The explanatory notes on the right help a casual user understand what the chart is doing
+          without needing to read the assignment.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Findings</h2>
+      <p>Using the visualization I noticed several patterns:</p>
+      <ul>
+        <li>
+          Many Frappuccino‑style drinks cluster in the high‑calorie, high‑sugar top‑right of the chart.
+        </li>
+        <li>
+          Brewed coffee and plain espresso drinks are usually very low in both calories and sugar unless they’re mixed with milk and syrups.
+        </li>
+        <li>
+          Some drinks are high in sugar but not especially high in caffeine, which is easy to see when coloring by caffeine level.
+        </li>
+      </ul>
+      <p>
+        These patterns are the kind of relationship that would be tedious to dig out from rows in a spreadsheet,
+        but they become obvious once you can filter and hover through the scatterplot.
+      </p>
+    </section>
+
+    <section>
+      <h2>6. Demo video</h2>
+      <p>
+        Below is a short screen‑capture video where I walk through the visualization, explain the controls, and
+        show a few example findings.
+      </p>
+      <p><strong>Note:</strong> Replace the video link / embed below with your actual YouTube video.</p>
+
+      <p>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+          Link to my demo video (placeholder)
+        </a>
+      </p>
+
+      <!-- Example embed; replace VIDEO_ID with your real YouTube id -->
+      <iframe width="560" height="315"
+              src="https://www.youtube.com/embed/VIDEO_ID"
+              title="Starbucks Drink Nutrition Explorer Demo"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </section>
+  </main>
+
+  <footer>
+    <p>Starbucks Drink Nutrition Explorer – Final project documentation.</p>
+  </footer>
+</body>
+</html>

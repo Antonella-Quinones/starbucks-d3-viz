@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Starbucks Drink Nutrition Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- D3.js CDN -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Starbucks Drink Nutrition Explorer</h1>
+    <p class="subtitle">
+      Explore sugar vs calories for Starbucks drinks. Use the controls to filter and see how different drink categories compare.
+    </p>
+    <nav>
+      <a href="docs.html">Project documentation</a>
+    </nav>
+  </header>
+
+  <section class="controls">
+    <div class="control-group">
+      <label for="categorySelect">Drink category:</label>
+      <select id="categorySelect">
+        <option value="all">All categories</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="calorieSlider">
+        Max calories:
+        <span id="calorieValue">600</span>
+      </label>
+      <input type="range" id="calorieSlider" min="0" max="600" step="20" value="600" />
+    </div>
+
+    <div class="control-group">
+      <label>
+        Color by:
+        <select id="colorBy">
+          <option value="Beverage_category">Category</option>
+          <option value="Caffeine (mg)">Caffeine level (low → high)</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <main>
+    <div id="chartContainer">
+      <svg id="chart"></svg>
+      <div id="tooltip" class="tooltip" style="opacity: 0;"></div>
+    </div>
+
+    <aside class="notes">
+      <h2>How to read this chart</h2>
+      <ul>
+        <li>Each dot is a drink size + preparation.</li>
+        <li>The x‑axis shows <strong>calories</strong>; the y‑axis shows <strong>sugar (g)</strong>.</li>
+        <li>Use the dropdowns to switch category and color encoding.</li>
+        <li>Hover over a dot to see the exact drink name and nutrition info.</li>
+      </ul>
+      <p class="small">
+        Data source: Kaggle &#8211; Starbucks drink menu nutrition.
+      </p>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Created by Antonella for the final D3 project.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
