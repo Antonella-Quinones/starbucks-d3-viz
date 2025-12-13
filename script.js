@@ -252,7 +252,7 @@ const cats =
         d3.select(this)
           .append("rect")
           .attr("x", 0)
-          .attr("y", -10)
+          .attr("y", -8)
           .attr("width", 10)
           .attr("height", 10)
           .attr("fill", colorScaleCategory(d));
@@ -261,7 +261,7 @@ const cats =
           .append("text")
           .attr("x", 16)
           .attr("y", 0)
-          .attr("dominant-baseline", "central")
+          .attr("dominant-baseline", "middle")
           .text(d);
       });
   } else {
