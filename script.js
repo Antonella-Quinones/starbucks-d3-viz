@@ -67,17 +67,18 @@ let colorScaleCategory = d3.scaleOrdinal(d3.schemeTableau10);
 let colorScaleCaffeine = d3.scaleSequential(d3.interpolateYlOrRd);
 
 function cleanRow(d) {
-  // Convert to numbers safely; missing values become null
-  const calories = +d["Calories"];
-  const sugar = +d[" Sugars (g)"];
-  const caffeine = +d["Caffeine (mg)"];
-  const category = d["Beverage_category"];
-  const name = d["Beverage"];
-  const prep = d["Beverage_prep"];
+  // Trim CSV headers to avoid hidden spacing bugs
+  const row = {};
+  for (const k in d) row[k.trim()] = d[k];
 
- if (isNaN(calories) || isNaN(sugar)) {
-  return null;
-}
+  const calories = +row["Calories"];
+  const sugar = +row["Sugars (g)"];
+  const caffeine = +row["Caffeine (mg)"];
+  const category = row["Beverage_category"];
+  const name = row["Beverage"];
+  const prep = row["Beverage_prep"];
+
+  if (!category || !name || isNaN(calories) || isNaN(sugar)) return null;
 
   return {
     category,
