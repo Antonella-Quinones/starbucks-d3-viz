@@ -234,7 +234,12 @@ function drawLegend(colorBy) {
       .text("Color: Category")
       .style("font-weight", "600");
 
-    const cats = colorScaleCategory.domain();
+    const selectedCategory = categorySelect.value;
+
+const cats =
+  selectedCategory === "all"
+    ? colorScaleCategory.domain()
+    : [selectedCategory];
     const rowHeight = 16;
 
     legendGroup
