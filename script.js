@@ -240,14 +240,14 @@ const cats =
   selectedCategory === "all"
     ? colorScaleCategory.domain()
     : [selectedCategory];
-    const rowHeight = 16;
+    const rowHeight = 18;
 
     legendGroup
       .selectAll("legend-row")
       .data(cats)
       .enter()
       .append("g")
-      .attr("transform", (d, i) => `translate(0, ${10 + i * rowHeight})`)
+      .attr("transform", (d, i) => `translate(0, ${28 + i * rowHeight})`)
       .each(function (d) {
         d3.select(this)
           .append("rect")
