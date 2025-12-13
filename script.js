@@ -69,7 +69,7 @@ let colorScaleCaffeine = d3.scaleSequential(d3.interpolateYlOrRd);
 function cleanRow(d) {
   // Convert to numbers safely; missing values become null
   const calories = +d["Calories"];
-  const sugar = +d["Sugars (g)"];
+  const sugar = +d[" Sugars (g)"];
   const caffeine = +d["Caffeine (mg)"];
   const category = d["Beverage_category"];
   const name = d["Beverage"];
