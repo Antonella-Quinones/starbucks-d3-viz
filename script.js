@@ -75,9 +75,9 @@ function cleanRow(d) {
   const name = d["Beverage"];
   const prep = d["Beverage_prep"];
 
-  if (!category || !name || isNaN(calories) || isNaN(sugar)) {
-    return null;
-  }
+ if (isNaN(calories) || isNaN(sugar)) {
+  return null;
+}
 
   return {
     category,
